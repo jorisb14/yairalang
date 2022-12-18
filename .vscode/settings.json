@@ -1,0 +1,11 @@
+
+{
+	"files.associations": {
+		"free.h": "c",
+		"malloc.h": "c",
+		"stdlib.h": "c",
+		"realloc.h": "c",
+		"type_traits": "c"
+	},
+	"cmake.sourceDirectory": "${workspaceFolder}/yairac"
+}

@@ -1,0 +1,139 @@
+
+{
+	"import": {
+		"prefix": "import",
+		"description": "Yairalang import snippet",
+		"body": [
+			"",
+			"import $name end",
+			""
+		]
+	},
+	"from-import": {
+		"prefix": "from-import",
+		"description": "Yairalang from-import snippet",
+		"body": [
+			"",
+			"from $file import",
+			"\t$items",
+			"end",
+			""
+		]
+	},
+	"module": {
+		"prefix": "module",
+		"description": "Yairalang module snippet",
+		"body": [
+			"",
+			"module $name do",
+			"\t# body",
+			"end",
+			""
+		]
+	},
+	"procedure": {
+		"prefix": "procedure",
+		"description": "Yairalang procedure snippet",
+		"body": [
+			"",
+			"procedure $name in $Tin out $Tout do",
+			"\t# body",
+			"end",
+			""
+		]
+	},
+	"inline-procedure": {
+		"prefix": "inline-procedure",
+		"description": "Yairalang inlined procedure snippet",
+		"body": [
+			"",
+			"inline procedure $name in $Tin out $Tout do",
+			"\t# body",
+			"end",
+			""
+		]
+	},
+	"export-procedure": {
+		"prefix": "export-procedure",
+		"description": "Yairalang exported procedure snippet",
+		"body": [
+			"",
+			"export procedure $name in $Tin out $Tout do",
+			"\t# body",
+			"end",
+			""
+		]
+	},
+	"export-inline-procedure": {
+		"prefix": "export-inline-procedure",
+		"description": "Yairalang exported and inlined procedure snippet",
+		"body": [
+			"",
+			"export inline procedure $name in $Tin out $Tout do",
+			"\t# body",
+			"end",
+			""
+		]
+	},
+	"main": {
+		"prefix": "main",
+		"description": "Yairalang main snippet",
+		"body": [
+			"",
+			"export procedure main in i64 p64 out i64 do",
+			"\t# body",
+			"end",
+			""
+		]
+	},
+	"if": {
+		"prefix": "if",
+		"description": "Yairalang if snippet",
+		"body": [
+			"",
+			"if $condition do",
+			"\t# body",
+			"end",
+			""
+		]
+	},
+	"switch": {
+		"prefix": "switch",
+		"description": "Yairalang switch snippet",
+		"body": [
+			"",
+			"switch $variable do",
+			"\tcase $constant do",
+			"\t\t# body",
+			"\tbreak end",
+			"",
+			"\tdefault do",
+			"\t\t# body",
+			"\tbreak end",
+			"end",
+			""
+		]
+	},
+	"while": {
+		"prefix": "while",
+		"description": "Yairalang while snippet",
+		"body": [
+			"",
+			"while $condition do",
+			"\t# body",
+			"end",
+			""
+		]
+	},
+	"with": {
+		"prefix": "with",
+		"description": "Yairalang with snippet",
+		"body": [
+			"",
+			"with $names as $Ts do",
+			"\t# body",
+			"end",
+			""
+		]
+	}
+}
