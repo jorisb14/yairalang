@@ -234,7 +234,7 @@ NEW_TEST(core_containers_map)
 	signed char succeeded = 0;
 	struct Core_Containers_Map* map = NULL;
 
-	W_Core_Containers_Map_create(&map, 4, &succeeded,
+	W_Core_Containers_Map_create(&map, 64, &succeeded,
 	{
 		ASSERT_TRUE(test, !"Internal failure");
 		RETURN;
@@ -247,8 +247,51 @@ NEW_TEST(core_containers_map)
 
 	ASSERT_TRUE(test, map != NULL);
 	ASSERT_TRUE(test, map->nodes != NULL);
-	ASSERT_TRUE(test, map->capacity == 4);
-	ASSERT_TRUE(test, map->count == 0);
+	ASSERT_TRUE(test, map->capacity == 64);
+
+	#define pairsCount 4
+	static const char* keys[pairsCount] = { "a", "b", "c", "a" };
+	static const char* values[pairsCount] = { "hello from a!", "hello from b!", "hello from c!", "hello from a! (clone)" };
+
+	for (unsigned long long i = 0; i < pairsCount; ++i)
+	{
+		W_Core_Containers_Map_set(&map, keys[i], STRLEN(keys[i]),
+			(const void* const * const)(&(values[i])), &succeeded,
+		{
+			ASSERT_TRUE(test, !"Internal failure");
+			RETURN;
+		},
+		{
+			ASSERT_TRUE(test, !"Logical failure");
+			RETURN;
+		},
+		{});
+	}
+
+	static const char* answers[pairsCount] = { "hello from a! (clone)", "hello from b!", "hello from c!", "hello from a! (clone)" };
+
+	for (unsigned long long i = 0; i < pairsCount; ++i)
+	{
+		const char* val = NULL;
+
+		W_Core_Containers_Map_get(&map, keys[i], STRLEN(keys[i]),
+			(const void* const * const)(&val), &succeeded,
+		{
+			ASSERT_TRUE(test, !"Internal failure");
+			RETURN;
+		},
+		{
+			ASSERT_TRUE(test, !"Logical failure");
+			RETURN;
+		},
+		{});
+
+		ASSERT_TRUE(test, STREQL(val, answers[i], STRLEN(val)));
+	}
+
+	ASSERT_TRUE(test, map != NULL);
+	ASSERT_TRUE(test, map->nodes != NULL);
+	ASSERT_TRUE(test, map->capacity == 64);
 
 	W_Core_Containers_Map_destroy((const struct Core_Containers_Map* const * const)&map, &succeeded,
 	{

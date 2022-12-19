@@ -36,7 +36,6 @@ struct Core_Containers_Map
 {
 	struct Core_Containers_Map_Node** nodes;
 	unsigned long long capacity;
-	unsigned long long count;
 };
 
 signed char Core_Containers_Map_create(
@@ -49,7 +48,17 @@ signed char Core_Containers_Map_destroy(
 	signed char* const succeeded);
 
 signed char Core_Containers_Map_set(
-	const struct Core_Containers_Map* const * const map,
+	struct Core_Containers_Map* const * const map,
+	const char* const key,
+	const unsigned long long length,
+	const void* const * const value,
+	signed char* const succeeded);
+
+signed char Core_Containers_Map_get(
+	struct Core_Containers_Map* const * const map,
+	const char* const key,
+	const unsigned long long length,
+	const void* const * const value,
 	signed char* const succeeded);
 
 /**

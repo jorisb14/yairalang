@@ -5,6 +5,10 @@ if [ ! -d ./build ]; then
 	mkdir -p ./build
 fi
 
+if [ ! -d ./logs ]; then
+	mkdir -p ./logs
+fi
+
 for file in *.c; do
 	gcc \
 		-std=gnu11 \
@@ -27,5 +31,3 @@ for file in *.c; do
 
 	./build/$file.out
 done
-
-rm -r ./build

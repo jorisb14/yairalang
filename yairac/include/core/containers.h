@@ -20,6 +20,9 @@
 #include <core/containers/list.h>
 #include <core/containers/wrappers/list.h>
 
+#include <core/containers/map.h>
+#include <core/containers/wrappers/map.h>
+
 /**
  * @addtogroup containers
  * 

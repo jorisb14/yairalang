@@ -64,6 +64,50 @@
 		} \
 	}
 
+// TODO: add log for the internal crash!
+// Previous log: "function Core_Containers_Map_set(...) returned with internal failure!"
+// TODO: document!
+#define W_Core_Containers_Map_set(_inmacro_map, _inmacro_key, _inmacro_length, _inmacro_value, _inmacro_succeeded, _inmacro_internalFailCallback, _inmacro_logicalFailCallback, _inmacro_successCallback) \
+	{ \
+		if (!Core_Containers_Map_set((_inmacro_map), (_inmacro_key), (_inmacro_length), (_inmacro_value), (_inmacro_succeeded))) \
+		{ \
+			_inmacro_internalFailCallback \
+		} \
+		else \
+		{ \
+			if (!(*(_inmacro_succeeded))) \
+			{ \
+				_inmacro_logicalFailCallback \
+			} \
+			else \
+			{ \
+				_inmacro_successCallback \
+			} \
+		} \
+	}
+
+// TODO: add log for the internal crash!
+// Previous log: "function Core_Containers_Map_get(...) returned with internal failure!"
+// TODO: document!
+#define W_Core_Containers_Map_get(_inmacro_map, _inmacro_key, _inmacro_length, _inmacro_value, _inmacro_succeeded, _inmacro_internalFailCallback, _inmacro_logicalFailCallback, _inmacro_successCallback) \
+	{ \
+		if (!Core_Containers_Map_get((_inmacro_map), (_inmacro_key), (_inmacro_length), (_inmacro_value), (_inmacro_succeeded))) \
+		{ \
+			_inmacro_internalFailCallback \
+		} \
+		else \
+		{ \
+			if (!(*(_inmacro_succeeded))) \
+			{ \
+				_inmacro_logicalFailCallback \
+			} \
+			else \
+			{ \
+				_inmacro_successCallback \
+			} \
+		} \
+	}
+
 /**
  * @}
  */

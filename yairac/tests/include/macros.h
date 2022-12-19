@@ -54,6 +54,12 @@ struct Tests_Test
 
 #define RETURN return
 
+#define STREQL(a, b, l) (strncmp(a, b, l) == 0)
+
+#define STRLEN(a) (strlen(a))
+
+#define NONE NULL
+
 #define NEW_TEST(_inmacro_testName) \
 	static void _inmacro_testName ## _validate( \
 		struct Tests_Test* const test); \
@@ -76,43 +82,95 @@ struct Tests_Test
 	{ \
 		assert(test != NULL); \
 		test->function(); \
-		fprintf(stdout, "+---+-------------------------------------------------------------------------+\n"); \
-		fprintf(stdout, "|   | Running test:                                                           |\n"); \
-		fprintf(stdout, "|   |  > %-68s |\n", test->name); \
-		fprintf(stdout, "|   +-------------------------------------------------------------------------+\n"); \
 		 \
-		unsigned long long passedCount = 0; \
-		unsigned long long failedCount = 0; \
-		 \
-		if (test->subtestsCount > 0) \
 		{ \
-			for (unsigned long long i = 0; i < test->subtestsCount; ++i) \
+			fprintf(stdout, "+---+-------------------------------------------------------------------------+\n"); \
+			fprintf(stdout, "|   | Running test:                                                           |\n"); \
+			fprintf(stdout, "|   |  > %-68s |\n", test->name); \
+			fprintf(stdout, "|   +-------------------------------------------------------------------------+\n"); \
+			\
+			unsigned long long passedCount = 0; \
+			unsigned long long failedCount = 0; \
+			\
+			if (test->subtestsCount > 0) \
 			{ \
-				if (!(test->subtests[i].result)) \
+				for (unsigned long long i = 0; i < test->subtestsCount; ++i) \
 				{ \
-					++failedCount; \
-				} \
-				else \
-				{ \
-					++passedCount; \
+					if (!(test->subtests[i].result)) \
+					{ \
+						++failedCount; \
+					} \
+					else \
+					{ \
+						++passedCount; \
+					} \
+					\
+					fprintf(stdout, "|   |   +-------------------------------------------------------------------------+\n"); \
+					fprintf(stdout, "|   +---| Running subtest:                                                        |\n"); \
+					fprintf(stdout, "|   |   |  > %-68s |\n", test->subtests[i].name); \
+					fprintf(stdout, "|   |   + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +\n"); \
+					fprintf(stdout, "|   |   | Finished with result:                                                   |\n"); \
+					fprintf(stdout, "|   |   |  > %-79s |\n", test->subtests[i].result ? GREEN("passed") : RED("failed")); \
 				} \
 				\
 				fprintf(stdout, "|   |   +-------------------------------------------------------------------------+\n"); \
-				fprintf(stdout, "|   +---| Running subtest:                                                        |\n"); \
-				fprintf(stdout, "|   |   |  > %-68s |\n", test->subtests[i].name); \
-				fprintf(stdout, "|   |   + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +\n"); \
-				fprintf(stdout, "|   |   | Finished with result:                                                   |\n"); \
-				fprintf(stdout, "|   |   |  > %-79s |\n", test->subtests[i].result ? GREEN("passed") : RED("failed")); \
+				fprintf(stdout, "|   +-------------------------------------------------------------------------+\n"); \
 			} \
-			 \
-			fprintf(stdout, "|   |   +-------------------------------------------------------------------------+\n"); \
-			fprintf(stdout, "|   +-------------------------------------------------------------------------+\n"); \
+			\
+			fprintf(stdout, "|   | End result:                                                             |\n"); \
+			fprintf(stdout, "|   |  > %llu %-77s |\n", passedCount, GREEN("passed")); \
+			fprintf(stdout, "|   |  > %llu %-77s |\n", failedCount, RED("failed")); \
+			fprintf(stdout, "+---+-------------------------------------------------------------------------+\n"); \
 		} \
 		 \
-		fprintf(stdout, "|   | End result:                                                             |\n"); \
-		fprintf(stdout, "|   |  > %llu %-77s |\n", passedCount, GREEN("passed")); \
-		fprintf(stdout, "|   |  > %llu %-77s |\n", failedCount, RED("failed")); \
-		fprintf(stdout, "+---+-------------------------------------------------------------------------+\n"); \
+		if (1) \
+		{ \
+			char path[256 + 1] = {0}; \
+			memcpy(path, "./logs/", 7); \
+			memcpy(path + 7, (const char*)(#_inmacro_testName), strlen((const char*)(#_inmacro_testName))); \
+			memcpy(path + 7 + strlen((const char*)(#_inmacro_testName)), ".log", 4); \
+			FILE* file = fopen(path, "w"); \
+			assert(file != NULL); \
+			\
+			fprintf(file, "+---+-------------------------------------------------------------------------+\n"); \
+			fprintf(file, "|   | Running test:                                                           |\n"); \
+			fprintf(file, "|   |  > %-68s |\n", test->name); \
+			fprintf(file, "|   +-------------------------------------------------------------------------+\n"); \
+			\
+			unsigned long long passedCount = 0; \
+			unsigned long long failedCount = 0; \
+			\
+			if (test->subtestsCount > 0) \
+			{ \
+				for (unsigned long long i = 0; i < test->subtestsCount; ++i) \
+				{ \
+					if (!(test->subtests[i].result)) \
+					{ \
+						++failedCount; \
+					} \
+					else \
+					{ \
+						++passedCount; \
+					} \
+					\
+					fprintf(file, "|   |   +-------------------------------------------------------------------------+\n"); \
+					fprintf(file, "|   +---| Running subtest:                                                        |\n"); \
+					fprintf(file, "|   |   |  > %-68s |\n", test->subtests[i].name); \
+					fprintf(file, "|   |   + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +\n"); \
+					fprintf(file, "|   |   | Finished with result:                                                   |\n"); \
+					fprintf(file, "|   |   |  > %-68s |\n", test->subtests[i].result ? "passed" : "failed"); \
+				} \
+				\
+				fprintf(file, "|   |   +-------------------------------------------------------------------------+\n"); \
+				fprintf(file, "|   +-------------------------------------------------------------------------+\n"); \
+			} \
+			\
+			fprintf(file, "|   | End result:                                                             |\n"); \
+			fprintf(file, "|   |  > %llu %-66s |\n", passedCount, "passed"); \
+			fprintf(file, "|   |  > %llu %-66s |\n", failedCount, "failed"); \
+			fprintf(file, "+---+-------------------------------------------------------------------------+\n"); \
+			fclose(file); \
+		} \
 	} \
 	 \
 	static void _inmacro_testName ## _execute( \
