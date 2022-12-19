@@ -39,7 +39,18 @@ struct Core_Containers_Map
 	unsigned long long count;
 };
 
-// TODO: functions!.
+signed char Core_Containers_Map_create(
+	struct Core_Containers_Map** const map,
+	const unsigned long long capacity,
+	signed char* const succeeded);
+
+signed char Core_Containers_Map_destroy(
+	const struct Core_Containers_Map* const * const map,
+	signed char* const succeeded);
+
+signed char Core_Containers_Map_set(
+	const struct Core_Containers_Map* const * const map,
+	signed char* const succeeded);
 
 /**
  * @}

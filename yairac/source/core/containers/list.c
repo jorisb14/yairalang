@@ -171,10 +171,11 @@ signed char Core_Containers_List_push(
 	},
 	{});
 
-	// Setting up node's 
-	node->data = (void*)data;
+	// Setting up node's
+	const void** const inner = (const void** const)data;
+	node->data = (void*)(*inner);
 
-	// Setting up node's 
+	// Setting up node's
 	node->next = NULL;
 
 	if ((*list)->head == NULL)

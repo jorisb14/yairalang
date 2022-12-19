@@ -69,6 +69,14 @@ signed char Core_Containers_Vector_create(
 	},
 	{});
 
+	// TODO: consider testing memset for NULL'yfing data.
+	// I think it should result in the same thing, but GCC
+	// might optimize memset better. TEST IT!
+	for (unsigned long long i = 0; i < capacity; ++i)
+	{
+		(*vector)->data[i] = NULL;
+	}
+
 	(*vector)->capacity = capacity;
 	(*vector)->count = 0;
 
@@ -131,7 +139,7 @@ signed char Core_Containers_Vector_destroy(
 }
 
 signed char Core_Containers_Vector_get(
-	struct Core_Containers_Vector* const * const vector,
+	const struct Core_Containers_Vector* const * const vector,
 	const unsigned long long index,
 	const void* const * const data,
 	signed char* const succeeded)
@@ -217,7 +225,9 @@ signed char Core_Containers_Vector_set(
 		return 0;
 	}
 
-	(*vector)->data[index] = (void*)*data;
+	const void** const inner = (const void** const)data;
+	(*vector)->data[index] = (void*)(*inner);
+
 	*succeeded = 1;
 	return 1;
 }
@@ -275,7 +285,8 @@ signed char Core_Containers_Vector_push(
 		(*vector)->capacity = newCapacity;
 	}
 
-	(*vector)->data[(*vector)->count++] = (void*)data;
+	const void** const inner = (const void** const)data;
+	(*vector)->data[(*vector)->count++] = (void*)(*inner);
 
 	*succeeded = 1;
 	return 1;

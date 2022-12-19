@@ -22,7 +22,8 @@ for file in *.c; do
 		./../source/core/memory/realloc.c \
 		./../source/core/memory/free.c \
 		./../source/core/containers/vector.c \
-		./../source/core/containers/list.c
+		./../source/core/containers/list.c \
+		./../source/core/containers/map.c
 
 	./build/$file.out
 done

@@ -20,7 +20,49 @@
  * @{
  */
 
+// TODO: add log for the internal crash!
+// Previous log: "function Core_Containers_Map_create(...) returned with internal failure!"
+// TODO: document!
+#define W_Core_Containers_Map_create(_inmacro_map, _inmacro_capacity, _inmacro_succeeded, _inmacro_internalFailCallback, _inmacro_logicalFailCallback, _inmacro_successCallback) \
+	{ \
+		if (!Core_Containers_Map_create((_inmacro_map), (_inmacro_capacity), (_inmacro_succeeded))) \
+		{ \
+			_inmacro_internalFailCallback \
+		} \
+		else \
+		{ \
+			if (!(*(_inmacro_succeeded))) \
+			{ \
+				_inmacro_logicalFailCallback \
+			} \
+			else \
+			{ \
+				_inmacro_successCallback \
+			} \
+		} \
+	}
 
+// TODO: add log for the internal crash!
+// Previous log: "function Core_Containers_Map_destroy(...) returned with internal failure!"
+// TODO: document!
+#define W_Core_Containers_Map_destroy(_inmacro_map, _inmacro_succeeded, _inmacro_internalFailCallback, _inmacro_logicalFailCallback, _inmacro_successCallback) \
+	{ \
+		if (!Core_Containers_Map_destroy((_inmacro_map), (_inmacro_succeeded))) \
+		{ \
+			_inmacro_internalFailCallback \
+		} \
+		else \
+		{ \
+			if (!(*(_inmacro_succeeded))) \
+			{ \
+				_inmacro_logicalFailCallback \
+			} \
+			else \
+			{ \
+				_inmacro_successCallback \
+			} \
+		} \
+	}
 
 /**
  * @}

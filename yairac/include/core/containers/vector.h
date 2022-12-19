@@ -41,7 +41,7 @@ signed char Core_Containers_Vector_destroy(
 
 // TODO: document!
 signed char Core_Containers_Vector_get(
-	struct Core_Containers_Vector* const * const vector,
+	const struct Core_Containers_Vector* const * const vector,
 	const unsigned long long index,
 	const void* const * const data,
 	signed char* const succeeded);

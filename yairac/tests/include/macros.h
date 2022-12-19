@@ -76,10 +76,10 @@ struct Tests_Test
 	{ \
 		assert(test != NULL); \
 		test->function(); \
-		fprintf(stdout, "+---+-------------------------------------------+\n"); \
-		fprintf(stdout, "|   | Running test:                             |\n"); \
-		fprintf(stdout, "|   |  > %-38s |\n", test->name); \
-		fprintf(stdout, "|   +-------------------------------------------+\n"); \
+		fprintf(stdout, "+---+-------------------------------------------------------------------------+\n"); \
+		fprintf(stdout, "|   | Running test:                                                           |\n"); \
+		fprintf(stdout, "|   |  > %-68s |\n", test->name); \
+		fprintf(stdout, "|   +-------------------------------------------------------------------------+\n"); \
 		 \
 		unsigned long long passedCount = 0; \
 		unsigned long long failedCount = 0; \
@@ -97,22 +97,22 @@ struct Tests_Test
 					++passedCount; \
 				} \
 				\
-				fprintf(stdout, "|   |   +-------------------------------------------+\n"); \
-				fprintf(stdout, "|   +---| Running subtest:                          |\n"); \
-				fprintf(stdout, "|   |   |  > %-38s |\n", test->subtests[i].name); \
-				fprintf(stdout, "|   |   + - - - - - - - - - - - - - - - - - - - - - +\n"); \
-				fprintf(stdout, "|   |   | Finished with result:                     |\n"); \
-				fprintf(stdout, "|   |   |  > %-49s |\n", test->subtests[i].result ? GREEN("passed") : RED("failed")); \
+				fprintf(stdout, "|   |   +-------------------------------------------------------------------------+\n"); \
+				fprintf(stdout, "|   +---| Running subtest:                                                        |\n"); \
+				fprintf(stdout, "|   |   |  > %-68s |\n", test->subtests[i].name); \
+				fprintf(stdout, "|   |   + - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - +\n"); \
+				fprintf(stdout, "|   |   | Finished with result:                                                   |\n"); \
+				fprintf(stdout, "|   |   |  > %-79s |\n", test->subtests[i].result ? GREEN("passed") : RED("failed")); \
 			} \
 			 \
-			fprintf(stdout, "|   |   +-------------------------------------------+\n"); \
-			fprintf(stdout, "|   +-------------------------------------------+\n"); \
+			fprintf(stdout, "|   |   +-------------------------------------------------------------------------+\n"); \
+			fprintf(stdout, "|   +-------------------------------------------------------------------------+\n"); \
 		} \
 		 \
-		fprintf(stdout, "|   | End result:                               |\n"); \
-		fprintf(stdout, "|   |  > %llu %-47s |\n", passedCount, GREEN("passed")); \
-		fprintf(stdout, "|   |  > %llu %-47s |\n", failedCount, RED("failed")); \
-		fprintf(stdout, "+---+-------------------------------------------+\n"); \
+		fprintf(stdout, "|   | End result:                                                             |\n"); \
+		fprintf(stdout, "|   |  > %llu %-77s |\n", passedCount, GREEN("passed")); \
+		fprintf(stdout, "|   |  > %llu %-77s |\n", failedCount, RED("failed")); \
+		fprintf(stdout, "+---+-------------------------------------------------------------------------+\n"); \
 	} \
 	 \
 	static void _inmacro_testName ## _execute( \
