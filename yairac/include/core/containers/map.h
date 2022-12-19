@@ -39,7 +39,7 @@ struct Core_Containers_Map
 	unsigned long long count;
 };
 
-// TODO: functions!
+// TODO: functions!.
 
 /**
  * @}
