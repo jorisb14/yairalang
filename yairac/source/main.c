@@ -17,9 +17,6 @@
 #include <core/containers/list.h>
 #include <core/containers/wrappers/list.h>
 
-#include <core/containers/map.h>
-#include <core/containers/wrappers/map.h>
-
 // C standard library headers
 #include <stdio.h>
 
@@ -30,29 +27,5 @@ int main(
 	(void)(argc);
 	(void)(argv);
 	fprintf(stdout, "Hello from yairac!\n");
-
-	signed char succeeded = 0;
-	struct Core_Containers_Vector* vector = NULL;
-
-	W_Core_Containers_Vector_create(&vector, 4, &succeeded, {}, {}, {});
-
-	static int val = 0;
-
-	for (int i = 0; i < 10; ++i)
-	{
-		fprintf(stdout, "%llu\n", vector->capacity);
-		W_Core_Containers_Vector_push(&vector, (const void* const * const)&val, &succeeded, {}, {}, {});
-	}
-
-	fprintf(stdout, "%llu\n", vector->capacity);
-	W_Core_Containers_Vector_shrink(&vector, &succeeded, {}, {}, {});
-	fprintf(stdout, "%llu\n", vector->capacity);
-
-	W_Core_Containers_Vector_destroy((const struct Core_Containers_Vector* const * const)&vector, &succeeded, {}, {}, {});
-
-	struct Core_Containers_List* list = NULL;
-	W_Core_Containers_List_create(&list, &succeeded, {}, {}, {});
-	W_Core_Containers_List_destroy((const struct Core_Containers_List* const * const)&list, &succeeded, {}, {}, {});
-
 	return 0;
 }

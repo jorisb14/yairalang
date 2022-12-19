@@ -39,7 +39,7 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "yarac::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-yarac-Debug-dc08855604919c5c6ce0.json",
+					"jsonFile" : "target-yarac-Debug-b2241b3220828ebfba3d.json",
 					"name" : "yarac",
 					"projectIndex" : 0
 				}
@@ -49,12 +49,12 @@
 	"kind" : "codemodel",
 	"paths" : 
 	{
-		"build" : "/home/jorisb/workshop/public/jorisb14/yairalang/build",
-		"source" : "/home/jorisb/workshop/public/jorisb14/yairalang/yairac"
+		"build" : "/home/joris/Desktop/yairalang/build",
+		"source" : "/home/joris/Desktop/yairalang/yairac"
 	},
 	"version" : 
 	{
 		"major" : 2,
-		"minor" : 4
+		"minor" : 3
 	}
 }

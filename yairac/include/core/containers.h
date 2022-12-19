@@ -15,12 +15,10 @@
 #define _YAIRAC_INCLUDE_CORE_CONTAINERS_H_
 
 #include <core/containers/vector.h>
-#include <core/containers/list.h>
-#include <core/containers/map.h>
-
 #include <core/containers/wrappers/vector.h>
+
+#include <core/containers/list.h>
 #include <core/containers/wrappers/list.h>
-#include <core/containers/wrappers/map.h>
 
 /**
  * @addtogroup containers

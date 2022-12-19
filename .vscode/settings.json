@@ -5,7 +5,9 @@
 		"malloc.h": "c",
 		"stdlib.h": "c",
 		"realloc.h": "c",
-		"type_traits": "c"
+		"type_traits": "c",
+		"macros.h": "c",
+		"list.h": "c"
 	},
 	"cmake.sourceDirectory": "${workspaceFolder}/yairac"
 }

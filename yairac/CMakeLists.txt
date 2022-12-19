@@ -49,10 +49,8 @@ file(GLOB YARAC_HEADER_FILES
 
 	"${YARAC_INCLUDE_DIRECTORY}/core/containers/vector.h"
 	"${YARAC_INCLUDE_DIRECTORY}/core/containers/list.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers/map.h"
 	"${YARAC_INCLUDE_DIRECTORY}/core/containers/wrappers/vector.h"
 	"${YARAC_INCLUDE_DIRECTORY}/core/containers/wrappers/list.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers/wrappers/map.h"
 	"${YARAC_INCLUDE_DIRECTORY}/core/containers.h"
 )
 
@@ -68,10 +66,8 @@ set(YARAC_PUBLIC_HEADER_FILES
 
 	"${YARAC_INCLUDE_DIRECTORY}/core/containers/vector.h"
 	"${YARAC_INCLUDE_DIRECTORY}/core/containers/list.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers/map.h"
 	"${YARAC_INCLUDE_DIRECTORY}/core/containers/wrappers/vector.h"
 	"${YARAC_INCLUDE_DIRECTORY}/core/containers/wrappers/list.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers/wrappers/map.h"
 	"${YARAC_INCLUDE_DIRECTORY}/core/containers.h"
 )
 
@@ -81,7 +77,6 @@ file(GLOB YARAC_SOURCE_FILES
 	"${YARAC_SOURCE_DIRECTORY}/core/memory/free.c"
 	"${YARAC_SOURCE_DIRECTORY}/core/containers/vector.c"
 	"${YARAC_SOURCE_DIRECTORY}/core/containers/list.c"
-	"${YARAC_SOURCE_DIRECTORY}/core/containers/map.c"
 
 	"${YARAC_SOURCE_DIRECTORY}/main.c"
 )

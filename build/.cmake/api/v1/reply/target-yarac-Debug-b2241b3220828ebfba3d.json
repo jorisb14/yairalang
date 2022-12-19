@@ -26,19 +26,19 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 86,
+				"line" : 88,
 				"parent" : 0
 			},
 			{
 				"command" : 1,
 				"file" : 0,
-				"line" : 88,
+				"line" : 90,
 				"parent" : 0
 			},
 			{
 				"command" : 2,
 				"file" : 0,
-				"line" : 93,
+				"line" : 95,
 				"parent" : 0
 			}
 		]
@@ -63,7 +63,7 @@
 			[
 				{
 					"backtrace" : 3,
-					"path" : "/home/jorisb/workshop/public/jorisb14/yairalang/yairac/include"
+					"path" : "/home/joris/Desktop/yairalang/yairac/include"
 				}
 			],
 			"language" : "C",

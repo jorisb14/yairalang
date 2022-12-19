@@ -159,7 +159,7 @@ signed char Core_Containers_List_push(
 
 	struct Core_Containers_List_Node* node = NULL;
 
-	W_Core_Memory_malloc((const void** const)(&node), sizeof(struct Core_Containers_List_Node), succeeded,
+	W_Core_Memory_malloc((const void* const * const)(&node), sizeof(struct Core_Containers_List_Node), succeeded,
 	{
 		*succeeded = 0;
 		return 0;

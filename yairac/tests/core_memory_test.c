@@ -15,22 +15,37 @@
 
 #include <core/memory.h>
 
-struct Data64
-{
-	char bytes[64];
-};
-
 NEW_TEST(core_memory_malloc)
 {
 	DEFINE_LOCALS(core_memory_malloc, test);
 
-	struct Data64* data = NULL;
+	unsigned char* data = NULL;
 	signed char succeeded = 0;
 
-	W_Core_Memory_malloc((const void* const * const)&data, sizeof(struct Data64), &succeeded, {}, {}, {});
+	W_Core_Memory_malloc((const void* const * const)&data, 10 * sizeof(unsigned char), &succeeded,
+	{
+		ASSERT_TRUE(test, !"Internal failure");
+		RETURN;
+	},
+	{
+		ASSERT_TRUE(test, !"Logical failure");
+		RETURN;
+	},
+	{});
+
 	ASSERT_TRUE(test, data != NULL);
 
-	W_Core_Memory_free((const void* const * const)&data, &succeeded, {}, {}, {});
+	W_Core_Memory_free((const void* const * const)&data, &succeeded,
+	{
+		ASSERT_TRUE(test, !"Internal failure");
+		RETURN;
+	},
+	{
+		ASSERT_TRUE(test, !"Logical failure");
+		RETURN;
+	},
+	{});
+
 	ASSERT_TRUE(test, data == NULL);
 }
 
@@ -38,21 +53,97 @@ NEW_TEST(core_memory_realloc)
 {
 	DEFINE_LOCALS(core_memory_realloc, test);
 
-	struct Data64* data = NULL;
+	unsigned char* data = NULL;
 	signed char succeeded = 0;
 
-	W_Core_Memory_realloc((const void* const * const)&data, sizeof(struct Data64), &succeeded, {}, {}, {});
+	W_Core_Memory_malloc((const void* const * const)&data, 10 * sizeof(unsigned char), &succeeded,
+	{
+		ASSERT_TRUE(test, !"Internal failure");
+		RETURN;
+	},
+	{
+		ASSERT_TRUE(test, !"Logical failure");
+		RETURN;
+	},
+	{});
+
 	ASSERT_TRUE(test, data != NULL);
+
+	W_Core_Memory_realloc((const void* const * const)&data, 20 * sizeof(unsigned char), &succeeded,
+	{
+		ASSERT_TRUE(test, !"Internal failure");
+		RETURN;
+	},
+	{
+		ASSERT_TRUE(test, !"Logical failure");
+		RETURN;
+	},
+	{});
+
+	ASSERT_TRUE(test, data != NULL);
+
+	W_Core_Memory_realloc((const void* const * const)&data, 5 * sizeof(unsigned char), &succeeded,
+	{
+		ASSERT_TRUE(test, !"Internal failure");
+		RETURN;
+	},
+	{
+		ASSERT_TRUE(test, !"Logical failure");
+		RETURN;
+	},
+	{});
+
+	ASSERT_TRUE(test, data != NULL);
+
+	W_Core_Memory_free((const void* const * const)&data, &succeeded,
+	{
+		ASSERT_TRUE(test, !"Internal failure");
+		RETURN;
+	},
+	{
+		ASSERT_TRUE(test, !"Logical failure");
+		RETURN;
+	},
+	{});
+
+	ASSERT_TRUE(test, data == NULL);
 }
 
 NEW_TEST(core_memory_free)
 {
 	DEFINE_LOCALS(core_memory_free, test);
 
-	ASSERT_TRUE(test, 1 == 1);
+	unsigned char* data = NULL;
+	signed char succeeded = 0;
+
+	W_Core_Memory_malloc((const void* const * const)&data, 10 * sizeof(unsigned char), &succeeded,
+	{
+		ASSERT_TRUE(test, !"Internal failure");
+		RETURN;
+	},
+	{
+		ASSERT_TRUE(test, !"Logical failure");
+		RETURN;
+	},
+	{});
+
+	ASSERT_TRUE(test, data != NULL);
+
+	W_Core_Memory_free((const void* const * const)&data, &succeeded,
+	{
+		ASSERT_TRUE(test, !"Internal failure");
+		RETURN;
+	},
+	{
+		ASSERT_TRUE(test, !"Logical failure");
+		RETURN;
+	},
+	{});
+
+	ASSERT_TRUE(test, data == NULL);
 }
 
-NEW_SUITE(my_suite)
+NEW_SUITE(core_memory)
 {
 	RUN_TEST(core_memory_malloc);
 	RUN_TEST(core_memory_realloc);

@@ -14,10 +14,8 @@ yairac_SOURCES = \
 	$(top_srcdir)/include/core/memory.h \
 	$(top_srcdir)/include/core/containers/vector.h \
 	$(top_srcdir)/include/core/containers/list.h \
-	$(top_srcdir)/include/core/containers/map.h \
 	$(top_srcdir)/include/core/containers/wrappers/vector.h \
 	$(top_srcdir)/include/core/containers/wrappers/list.h \
-	$(top_srcdir)/include/core/containers/wrappers/map.h \
 	$(top_srcdir)/include/core/containers.h \
 	 \
 	$(top_srcdir)/source/core/memory/malloc.c \
@@ -25,7 +23,6 @@ yairac_SOURCES = \
 	$(top_srcdir)/source/core/memory/free.c \
 	$(top_srcdir)/source/core/containers/vector.c \
 	$(top_srcdir)/source/core/containers/list.c \
-	$(top_srcdir)/source/core/containers/map.c \
 	 \
 	$(top_srcdir)/source/main.c
 

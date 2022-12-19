@@ -272,13 +272,10 @@ signed char Core_Containers_Vector_push(
 		},
 		{});
 
-		(*vector)->data[(*vector)->count++] = (void*)data;
 		(*vector)->capacity = newCapacity;
 	}
-	else
-	{
-		(*vector)->data[(*vector)->count++] = (void*)data;
-	}
+
+	(*vector)->data[(*vector)->count++] = (void*)data;
 
 	*succeeded = 1;
 	return 1;

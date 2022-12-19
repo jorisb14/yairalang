@@ -16,6 +16,7 @@
 
 #include <assert.h>
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 
 /**
@@ -50,6 +51,8 @@ struct Tests_Test
 #define YELLOW(str) "\033[0;33m"str"\033[0m"
 
 #define GREEN(str) "\033[0;32m"str"\033[0m"
+
+#define RETURN return
 
 #define NEW_TEST(_inmacro_testName) \
 	static void _inmacro_testName ## _validate( \
