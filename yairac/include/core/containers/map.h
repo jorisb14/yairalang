@@ -20,7 +20,26 @@
  * @{
  */
 
+struct Core_Containers_Map_Node
+{
+	struct
+	{
+		const char* buffer;
+		unsigned long length;
+	} key;
 
+	void* value;
+	struct Core_Containers_Map_Node* next;
+};
+
+struct Core_Containers_Map
+{
+	struct Core_Containers_Map_Node** nodes;
+	unsigned long long capacity;
+	unsigned long long count;
+};
+
+// TODO: functions!
 
 /**
  * @}
