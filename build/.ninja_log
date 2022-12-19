@@ -1,8 +1,0 @@
-# ninja log v5
-2	22	1671366426732225357	CMakeFiles/yarac.dir/source/main.c.o	49ab7fdba4c78fe4
-1	23	1671366426733225338	CMakeFiles/yarac.dir/source/core/memory/realloc.c.o	17660c72a084a8af
-1	24	1671366426735225300	CMakeFiles/yarac.dir/source/core/containers/list.c.o	890f908fb52ab473
-1	25	1671366426736225281	CMakeFiles/yarac.dir/source/core/containers/vector.c.o	1f19211f5c6ecd54
-1	26	1671366426737225262	CMakeFiles/yarac.dir/source/core/memory/free.c.o	8bf6727470f83747
-1	38	1671366426749225033	CMakeFiles/yarac.dir/source/core/memory/malloc.c.o	cab8d917fd2e477a
-38	60	1671366426770224632	yarac	84b19269409ed64e

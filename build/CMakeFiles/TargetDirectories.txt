@@ -1,3 +1,0 @@
-/home/joris/Desktop/yairalang/build/CMakeFiles/yarac.dir
-/home/joris/Desktop/yairalang/build/CMakeFiles/edit_cache.dir
-/home/joris/Desktop/yairalang/build/CMakeFiles/rebuild_cache.dir

@@ -1,1 +1,0 @@
-/usr/bin/gcc -g -rdynamic CMakeFiles/yarac.dir/source/core/containers/list.c.o CMakeFiles/yarac.dir/source/core/containers/vector.c.o CMakeFiles/yarac.dir/source/core/memory/free.c.o CMakeFiles/yarac.dir/source/core/memory/malloc.c.o CMakeFiles/yarac.dir/source/core/memory/realloc.c.o CMakeFiles/yarac.dir/source/main.c.o -o yarac 

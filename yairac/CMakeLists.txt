@@ -33,72 +33,60 @@ if(CMAKE_C_COMPILER_ID MATCHES "GNU")
 	set(CFLAGS "${CFLAGS} -std=gnu11")
 endif()
 
-set(YARAC_BIN_DIRECTORY     "${CMAKE_CURRENT_SOURCE_DIR}/build")
-set(YARAC_INCLUDE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include")
-set(YARAC_SOURCE_DIRECTORY  "${CMAKE_CURRENT_SOURCE_DIR}/source")
+set(YAIRAC_BIN_DIRECTORY     "${CMAKE_CURRENT_SOURCE_DIR}/build")
+set(YAIRAC_INCLUDE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include")
+set(YAIRAC_SOURCE_DIRECTORY  "${CMAKE_CURRENT_SOURCE_DIR}/source")
 
-file(GLOB YARAC_HEADER_FILES
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/malloc.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/realloc.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/free.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/null.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/wrappers/malloc.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/wrappers/realloc.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/wrappers/free.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory.h"
+file(GLOB YAIRAC_HEADER_FILES
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/memory/malloc.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/memory/realloc.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/memory/free.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/memory/null.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/memory/wrappers/malloc.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/memory/wrappers/realloc.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/memory/wrappers/free.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/memory.h"
 
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers/vector.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers/list.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers/wrappers/vector.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers/wrappers/list.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/containers/vector.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/containers/list.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/containers/map.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/containers/wrappers/vector.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/containers/wrappers/list.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/containers/wrappers/map.h"
+	"${YAIRAC_INCLUDE_DIRECTORY}/core/containers.h"
 )
 
-set(YARAC_PUBLIC_HEADER_FILES
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/malloc.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/realloc.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/free.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/null.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/wrappers/malloc.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/wrappers/realloc.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory/wrappers/free.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/memory.h"
+set(YAIRAC_PUBLIC_HEADER_FILES ${YAIRAC_HEADER_FILES})
 
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers/vector.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers/list.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers/wrappers/vector.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers/wrappers/list.h"
-	"${YARAC_INCLUDE_DIRECTORY}/core/containers.h"
-)
+file(GLOB YAIRAC_SOURCE_FILES
+	"${YAIRAC_SOURCE_DIRECTORY}/core/memory/malloc.c"
+	"${YAIRAC_SOURCE_DIRECTORY}/core/memory/realloc.c"
+	"${YAIRAC_SOURCE_DIRECTORY}/core/memory/free.c"
+	"${YAIRAC_SOURCE_DIRECTORY}/core/containers/vector.c"
+	"${YAIRAC_SOURCE_DIRECTORY}/core/containers/list.c"
+	"${YAIRAC_SOURCE_DIRECTORY}/core/containers/map.c"
 
-file(GLOB YARAC_SOURCE_FILES
-	"${YARAC_SOURCE_DIRECTORY}/core/memory/malloc.c"
-	"${YARAC_SOURCE_DIRECTORY}/core/memory/realloc.c"
-	"${YARAC_SOURCE_DIRECTORY}/core/memory/free.c"
-	"${YARAC_SOURCE_DIRECTORY}/core/containers/vector.c"
-	"${YARAC_SOURCE_DIRECTORY}/core/containers/list.c"
-
-	"${YARAC_SOURCE_DIRECTORY}/main.c"
+	"${YAIRAC_SOURCE_DIRECTORY}/main.c"
 )
 
 string(TOUPPER "${CMAKE_BUILD_TYPE}" BUILD_VARIANT)
-set(YARAC_BUILD_VARIANT "YARAC_${BUILD_VARIANT}")
-message(${YARAC_BUILD_VARIANT})
+set(YAIRAC_BUILD_VARIANT "YAIRAC_${BUILD_VARIANT}")
+message(${YAIRAC_BUILD_VARIANT})
 
-add_executable(${PROJECT_NAME} ${YARAC_SOURCE_FILES})
+add_executable(${PROJECT_NAME} ${YAIRAC_SOURCE_FILES})
 
 target_compile_definitions(${PROJECT_NAME}
 	PUBLIC
-		"${YARAC_BUILD_VARIANT}=1"
+		"${YAIRAC_BUILD_VARIANT}=1"
 )
 
 target_include_directories(${PROJECT_NAME}
 	PUBLIC
 		$<INSTALL_INTERFACE:include>
-		$<BUILD_INTERFACE:${YARAC_INCLUDE_DIRECTORY}>
+		$<BUILD_INTERFACE:${YAIRAC_INCLUDE_DIRECTORY}>
 )
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	PUBLIC_HEADER
-		"${YARAC_PUBLIC_HEADER_FILES}"
+		"${YAIRAC_PUBLIC_HEADER_FILES}"
 )
