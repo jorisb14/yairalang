@@ -13,8 +13,11 @@ gcc \
 	-Wpedantic \
 	-Werror \
 	-Wshadow \
-	-o ./build/map.out \
-	./map.c
+	-g \
+	-O0 \
+	-rdynamic \
+	-o ./build/logger.out \
+	./logger.c
 
 # Run the tester
-./build/map.out
+./build/logger.out
