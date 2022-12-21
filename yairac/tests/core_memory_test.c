@@ -8,144 +8,107 @@
  *
  * @author jorisb14
  *
- * @date 2022-12-18
+ * @date 2022-12-21
  */
 
-#include <macros.h>
+#include <test.h>
 
 #include <core/memory.h>
 
-NEW_TEST(core_memory_malloc)
+TEST_NEW(core_memory_malloc)
 {
-	DEFINE_LOCALS(core_memory_malloc, test);
+	LOG_INFO("running test 'core_memory_malloc'...");
 
 	unsigned char* data = NULL;
 	signed char succeeded = 0;
 
-	W_Core_Memory_malloc((const void* const * const)&data, 10 * sizeof(unsigned char), &succeeded,
+	W_Core_Memory_malloc((const void* const * const)&data, 10 * sizeof(unsigned char), &succeeded, { }, { }, { });
+	ASSERT_TRUE(data != NULL,
 	{
-		ASSERT_TRUE(test, !"Internal failure");
-		RETURN;
+		LOG_ERROR(TAB"failed to allocate a block of memory using W_Core_Memory_malloc!");
 	},
 	{
-		ASSERT_TRUE(test, !"Logical failure");
-		RETURN;
-	},
-	{});
+		LOG_SUCCESS(TAB"successfully allocated a block of memory using W_Core_Memory_malloc!");
+	});
 
-	ASSERT_TRUE(test, data != NULL);
-
-	W_Core_Memory_free((const void* const * const)&data, &succeeded,
-	{
-		ASSERT_TRUE(test, !"Internal failure");
-		RETURN;
-	},
-	{
-		ASSERT_TRUE(test, !"Logical failure");
-		RETURN;
-	},
-	{});
-
-	ASSERT_TRUE(test, data == NULL);
+	EMPTY_LINE;
 }
 
-NEW_TEST(core_memory_realloc)
+TEST_NEW(core_memory_realloc)
 {
-	DEFINE_LOCALS(core_memory_realloc, test);
+	LOG_INFO("running test 'core_memory_realloc'...");
 
 	unsigned char* data = NULL;
 	signed char succeeded = 0;
 
-	W_Core_Memory_malloc((const void* const * const)&data, 10 * sizeof(unsigned char), &succeeded,
+	W_Core_Memory_malloc((const void* const * const)&data, 10 * sizeof(unsigned char), &succeeded, { }, { }, { });
+	ASSERT_TRUE(data != NULL,
 	{
-		ASSERT_TRUE(test, !"Internal failure");
-		RETURN;
+		LOG_ERROR(TAB"failed to allocate a block of memory using W_Core_Memory_malloc!");
 	},
 	{
-		ASSERT_TRUE(test, !"Logical failure");
-		RETURN;
-	},
-	{});
+		LOG_SUCCESS(TAB"successfully allocated a block of memory using W_Core_Memory_malloc!");
+	});
 
-	ASSERT_TRUE(test, data != NULL);
-
-	W_Core_Memory_realloc((const void* const * const)&data, 20 * sizeof(unsigned char), &succeeded,
+	W_Core_Memory_realloc((const void* const * const)&data, 20 * sizeof(unsigned char), &succeeded, { }, { }, { });
+	ASSERT_TRUE(data != NULL,
 	{
-		ASSERT_TRUE(test, !"Internal failure");
-		RETURN;
+		LOG_ERROR(TAB"failed to reallocate a block of memory using W_Core_Memory_realloc!");
 	},
 	{
-		ASSERT_TRUE(test, !"Logical failure");
-		RETURN;
-	},
-	{});
+		LOG_SUCCESS(TAB"successfully reallocated a block of memory using W_Core_Memory_realloc!");
+	});
 
-	ASSERT_TRUE(test, data != NULL);
-
-	W_Core_Memory_realloc((const void* const * const)&data, 5 * sizeof(unsigned char), &succeeded,
+	W_Core_Memory_free((const void* const * const)&data, &succeeded, { }, { }, { });
+	ASSERT_TRUE(data == NULL,
 	{
-		ASSERT_TRUE(test, !"Internal failure");
-		RETURN;
+		LOG_ERROR(TAB"failed to deallocate a block of memory using W_Core_Memory_free!");
 	},
 	{
-		ASSERT_TRUE(test, !"Logical failure");
-		RETURN;
-	},
-	{});
+		LOG_SUCCESS(TAB"successfully deallocated a block of memory using W_Core_Memory_free!");
+	});
 
-	ASSERT_TRUE(test, data != NULL);
-
-	W_Core_Memory_free((const void* const * const)&data, &succeeded,
-	{
-		ASSERT_TRUE(test, !"Internal failure");
-		RETURN;
-	},
-	{
-		ASSERT_TRUE(test, !"Logical failure");
-		RETURN;
-	},
-	{});
-
-	ASSERT_TRUE(test, data == NULL);
+	EMPTY_LINE;
 }
 
-NEW_TEST(core_memory_free)
+TEST_NEW(core_memory_free)
 {
-	DEFINE_LOCALS(core_memory_free, test);
+	LOG_INFO("running test 'core_memory_free'...");
 
 	unsigned char* data = NULL;
 	signed char succeeded = 0;
 
-	W_Core_Memory_malloc((const void* const * const)&data, 10 * sizeof(unsigned char), &succeeded,
+	W_Core_Memory_malloc((const void* const * const)&data, 10 * sizeof(unsigned char), &succeeded, { }, { }, { });
+	ASSERT_TRUE(data != NULL,
 	{
-		ASSERT_TRUE(test, !"Internal failure");
-		RETURN;
+		LOG_ERROR(TAB"failed to allocate a block of memory using W_Core_Memory_malloc!");
 	},
 	{
-		ASSERT_TRUE(test, !"Logical failure");
-		RETURN;
-	},
-	{});
+		LOG_SUCCESS(TAB"successfully allocated a block of memory using W_Core_Memory_malloc!");
+	});
 
-	ASSERT_TRUE(test, data != NULL);
-
-	W_Core_Memory_free((const void* const * const)&data, &succeeded,
+	W_Core_Memory_free((const void* const * const)&data, &succeeded, { }, { }, { });
+	ASSERT_TRUE(data == NULL,
 	{
-		ASSERT_TRUE(test, !"Internal failure");
-		RETURN;
+		LOG_ERROR(TAB"failed to deallocate a block of memory using W_Core_Memory_free!");
 	},
 	{
-		ASSERT_TRUE(test, !"Logical failure");
-		RETURN;
-	},
-	{});
+		LOG_SUCCESS(TAB"successfully deallocated a block of memory using W_Core_Memory_free!");
+	});
 
-	ASSERT_TRUE(test, data == NULL);
+	EMPTY_LINE;
 }
 
-NEW_SUITE(core_memory)
+SUITE_NEW(core_memory)
 {
-	RUN_TEST(core_memory_malloc);
-	RUN_TEST(core_memory_realloc);
-	RUN_TEST(core_memory_free);
+	TEST_ADD(core_memory_malloc),
+	TEST_ADD(core_memory_realloc),
+	TEST_ADD(core_memory_free),
+	SUITE_END
+};
+
+ENTRY
+{
+	SUITE_RUN(core_memory);
+	EXIT;
 }

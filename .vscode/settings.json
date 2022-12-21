@@ -7,7 +7,8 @@
 		"realloc.h": "c",
 		"type_traits": "c",
 		"macros.h": "c",
-		"list.h": "c"
+		"list.h": "c",
+		"*.log": "ansi"
 	},
-	"cmake.sourceDirectory": "${workspaceFolder}/yairac"
+	"cmake.sourceDirectory": "${workspaceFolder}/yairac/tests"
 }

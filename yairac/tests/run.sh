@@ -9,7 +9,11 @@ if [ ! -d ./logs ]; then
 	mkdir -p ./logs
 fi
 
-for file in *.c; do
+rm -f ./logs/*.log
+touch ./logs/all.log
+chmod 777 ./logs/all.log
+
+for file in ./*.c; do
 	gcc \
 		-std=gnu11 \
 		-Wall \
@@ -29,5 +33,9 @@ for file in *.c; do
 		./../source/core/containers/list.c \
 		./../source/core/containers/map.c
 
+	touch ./logs/$file.log
+	chmod 777 ./logs/$file.log
 	./build/$file.out
+	./build/$file.out > ./logs/$file.log
+	cat ./logs/$file.log >> ./logs/all.log
 done

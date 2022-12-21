@@ -1,6 +1,6 @@
 
 cmake_minimum_required(VERSION 3.3)
-project("yarac" LANGUAGES C)
+project("yairac" LANGUAGES C)
 
 if(CMAKE_C_COMPILER_ID MATCHES "GNU")
 	set(PEDANTIC_COMPILE_FLAGS -pedantic-errors -Wall -Wextra -pedantic
