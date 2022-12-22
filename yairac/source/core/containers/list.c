@@ -261,62 +261,6 @@ signed char Core_Containers_List_pop(
 	return 1;
 }
 
-signed char Core_Containers_List_peek(
-	const struct Core_Containers_List* const * const list,
-	const unsigned long long offset,
-	const void* const * const data,
-	signed char* const succeeded)
-{
-	if (succeeded == NULL)
-	{
-		// TODO: log invalid `succeeded` parameter error!
-		return 0;
-	}
-
-	if (list == NULL)
-	{
-		// TODO: log invalid `list` parameter error!
-		*succeeded = 0;
-		return 0;
-	}
-
-	if (*list == NULL)
-	{
-		// TODO: log invalid `list`'s deref parameter error!
-		*succeeded = 0;
-		return 0;
-	}
-
-	if (offset >= (*list)->count)
-	{
-		// TODO: log that provided function parameter `offset` is out of bounds!
-		*succeeded = 0;
-		return 0;
-	}
-
-	if (data == NULL)
-	{
-		// TODO: log that provided function parameter `data` is invalid!
-		*succeeded = 0;
-		return 0;
-	}
-
-	*succeeded = 0;
-
-	struct Core_Containers_List_Node* last = (*list)->head;
-
-	for (unsigned long long count = 0; last->next != NULL && count != offset; ++count)
-	{
-		last = last->next;
-	}
-
-	const void** const inner = (const void** const)data;
-	*inner = last->data;
-
-	*succeeded = 1;
-	return 1;
-}
-
 /**
  * @}
  */

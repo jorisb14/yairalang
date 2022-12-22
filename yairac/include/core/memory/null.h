@@ -21,6 +21,10 @@
  */
 
 #ifndef NULL
+	/**
+	 * Lightweight NULL macro, tht does not require stdlib.h header or any other C standard library
+	 * utility. Should be used as any other NULL in the C programming language.
+	 */
 #	define NULL ((void*)0)
 #endif
 

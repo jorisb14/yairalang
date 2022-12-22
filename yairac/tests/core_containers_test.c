@@ -32,6 +32,14 @@ TEST_NEW(core_containers_vector)
 		LOG_SUCCESS(TAB"successfully created a vector using W_Core_Containers_Vector_create!");
 	});
 
+	ASSERT_TRUE(vector->data != NULL,
+	{
+		LOG_ERROR(TAB"failed to create the vector's data!");
+	},
+	{
+		LOG_SUCCESS(TAB"successfully created the vector's data!");
+	});
+
 	ASSERT_TRUE(vector->capacity == 4,
 	{
 		LOG_ERROR(TAB"failed to set the capacity of the vector to 4!");
@@ -276,10 +284,10 @@ TEST_NEW(core_containers_list)
 
 		ASSERT_TRUE(*(signed int*)val == values[i],
 		{
-			LOG_ERROR(TAB"failed to get a correct value from the vector using W_Core_Containers_Vector_get!");
+			LOG_ERROR(TAB"failed to get a correct value from the list!");
 		},
 		{
-			LOG_SUCCESS(TAB"successfully got the correct value from the vector using W_Core_Containers_Vector_get!");
+			LOG_SUCCESS(TAB"successfully got the correct value from the list!");
 		});
 
 		++i;
@@ -301,6 +309,86 @@ TEST_NEW(core_containers_list)
 		LOG_SUCCESS(TAB"successfully did not change the count of the list to 5!");
 	});
 
+	{
+		void* val = NULL;
+
+		W_Core_Containers_List_pop(&list, (const void* const * const)&val, &succeeded, { }, { }, { });
+
+		ASSERT_TRUE(val == addresses[4],
+		{
+			LOG_ERROR(TAB"failed to pop a correct value from the list using W_Core_Containers_List_pop!");
+		},
+		{
+			LOG_SUCCESS(TAB"successfully popped the correct value from the list using W_Core_Containers_List_pop!");
+		});
+
+		ASSERT_TRUE(*(signed int*)val == values[4],
+		{
+			LOG_ERROR(TAB"failed to pop a correct value from the list using W_Core_Containers_List_pop!");
+		},
+		{
+			LOG_SUCCESS(TAB"successfully popped the correct value from the list using W_Core_Containers_List_pop!");
+		});
+	}
+
+	ASSERT_TRUE(list->head != NULL,
+	{
+		LOG_ERROR(TAB"failed to not change the head of the list to NULL!");
+	},
+	{
+		LOG_SUCCESS(TAB"successfully did not change the head of the list to NULL!");
+	});
+
+	ASSERT_TRUE(list->count == 4,
+	{
+		LOG_ERROR(TAB"failed to change the count of the list to 4!");
+	},
+	{
+		LOG_SUCCESS(TAB"successfully did change the count of the list to 4!");
+	});
+
+	i = 0;
+
+	for (struct Core_Containers_List_Node* iterator = list->head; iterator != NULL; iterator = iterator->next)
+	{
+		void* val = iterator->data;
+
+		ASSERT_TRUE(val == addresses[i],
+		{
+			LOG_ERROR(TAB"failed to get a correct value from the list!");
+		},
+		{
+			LOG_SUCCESS(TAB"successfully got the correct value from the list!");
+		});
+
+		ASSERT_TRUE(*(signed int*)val == values[i],
+		{
+			LOG_ERROR(TAB"failed to get a correct value from the list!");
+		},
+		{
+			LOG_SUCCESS(TAB"successfully got the correct value from the list!");
+		});
+
+		++i;
+	}
+
+	ASSERT_TRUE(list->head != NULL,
+	{
+		LOG_ERROR(TAB"failed to not change the head of the list to NULL!");
+	},
+	{
+		LOG_SUCCESS(TAB"successfully did not change the head of the list to NULL!");
+	});
+
+	ASSERT_TRUE(list->count == 4,
+	{
+		LOG_ERROR(TAB"failed to not change the count of the list to 4!");
+	},
+	{
+		LOG_SUCCESS(TAB"successfully did not change the count of the list to 4!");
+	});
+
+
 	W_Core_Containers_List_destroy((const struct Core_Containers_List* const * const)&list, &succeeded, { }, { }, { });
 
 	ASSERT_TRUE(list == NULL,
@@ -317,6 +405,94 @@ TEST_NEW(core_containers_list)
 TEST_NEW(core_containers_map)
 {
 	LOG_INFO("running test 'core_containers_map'...");
+
+	signed char succeeded = 0;
+	struct Core_Containers_Map* map = NULL;
+
+	W_Core_Containers_Map_create(&map, 64, &succeeded, { }, { }, { });
+
+	ASSERT_TRUE(map != NULL,
+	{
+		LOG_ERROR(TAB"failed to create a map using W_Core_Containers_Map_create!");
+	},
+	{
+		LOG_SUCCESS(TAB"successfully created a map using W_Core_Containers_Map_create!");
+	});
+
+	ASSERT_TRUE(map->nodes != NULL,
+	{
+		LOG_ERROR(TAB"failed to create the map's nodes!");
+	},
+	{
+		LOG_SUCCESS(TAB"successfully created the map's nodes!");
+	});
+
+	ASSERT_TRUE(map->capacity == 64,
+	{
+		LOG_ERROR(TAB"failed to set the capacity of the map to 64!");
+	},
+	{
+		LOG_SUCCESS(TAB"successfully set the capacity of the map to 64!");
+	});
+
+	#define pairsCount 4
+	static const char* keys[pairsCount] = { "a", "b", "c", "a" };
+	static const char* values[pairsCount] = { "hello from a!", "hello from b!", "hello from c!", "hello from a! (clone)" };
+
+	for (unsigned long long i = 0; i < pairsCount; ++i)
+	{
+		W_Core_Containers_Map_set(&map, keys[i], STRLEN(keys[i]), (const void* const * const)(&(values[i])), &succeeded, { }, { }, { });
+	}
+
+	static const char* answers[pairsCount] = { "hello from a! (clone)", "hello from b!", "hello from c!", "hello from a! (clone)" };
+
+	for (unsigned long long i = 0; i < pairsCount; ++i)
+	{
+		const char* val = NULL;
+		W_Core_Containers_Map_get((const struct Core_Containers_Map* const * const)&map, keys[i], STRLEN(keys[i]), (const void* const * const)(&val), &succeeded, { }, { }, { });
+
+		ASSERT_TRUE(STREQL(val, answers[i]),
+		{
+			LOG_ERROR(TAB"failed to get a correct value from the map using W_Core_Containers_Map_get!");
+		},
+		{
+			LOG_SUCCESS(TAB"successfully got the correct value from the map using W_Core_Containers_Map_get!");
+		});
+	}
+
+	ASSERT_TRUE(map != NULL,
+	{
+		LOG_ERROR(TAB"failed to not change a map using W_Core_Containers_Map_create!");
+	},
+	{
+		LOG_SUCCESS(TAB"successfully did not change a map using W_Core_Containers_Map_create!");
+	});
+
+	ASSERT_TRUE(map->nodes != NULL,
+	{
+		LOG_ERROR(TAB"failed to not change the map's nodes!");
+	},
+	{
+		LOG_SUCCESS(TAB"successfully did not change the map's nodes!");
+	});
+
+	ASSERT_TRUE(map->capacity == 64,
+	{
+		LOG_ERROR(TAB"failed to not change the capacity of the map to 64!");
+	},
+	{
+		LOG_SUCCESS(TAB"successfully did not change the capacity of the map to 64!");
+	});
+
+	W_Core_Containers_Map_destroy((const struct Core_Containers_Map* const * const)&map, &succeeded, { }, { }, { });
+
+	ASSERT_TRUE(map == NULL,
+	{
+		LOG_ERROR(TAB"failed to destroy the map using W_Core_Containers_Map_destroy!");
+	},
+	{
+		LOG_SUCCESS(TAB"successfully destroyed the map using W_Core_Containers_Map_destroy!");
+	});
 
 	EMPTY_LINE;
 }

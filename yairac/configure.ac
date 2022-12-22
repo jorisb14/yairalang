@@ -33,7 +33,7 @@ AC_CONFIG_FILES([Makefile])
 ${CFLAGS="-O0 -g -DYAIRAC_DEBUG=1"}
 
 # Find C compiler
-AC_PROG_CC([gcc cc cl]) # NOTE: cl might not work - haven't tested yet
+AC_PROG_CC([gcc cc])
 
 # Set language to C
 AC_LANG(C)
@@ -52,9 +52,9 @@ AC_CHECK_HEADERS([
 	ctype.h])
 
 # Checks for typedefs, structures, and compiler characteristics.
-AC_C_CONST
-AC_C_INLINE
 AC_C_STRINGIZE
+AC_C_INLINE
+AC_C_CONST
 
 # Checks for library functions.
 AC_CHECK_FUNCS([
@@ -69,6 +69,7 @@ AC_CHECK_FUNCS([
 	memcmp
 	strncmp
 	strlen
+	isalpha
 	isdigit
 	fopen
 	fclose

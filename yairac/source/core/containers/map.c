@@ -246,6 +246,99 @@ signed char Core_Containers_Map_destroy(
 	return 1;
 }
 
+signed char Core_Containers_Map_get(
+	const struct Core_Containers_Map* const * const map,
+	const char* const key,
+	const unsigned long long length,
+	const void* const * const value,
+	signed char* const succeeded)
+{
+	if (succeeded == NULL)
+	{
+		// TODO: log invalid `succeeded` parameter error!
+		return 0;
+	}
+
+	if (map == NULL)
+	{
+		// TODO: log invalid `map` parameter error!
+		*succeeded = 0;
+		return 0;
+	}
+
+	if (*map == NULL)
+	{
+		// TODO: log invalid `map`'s deref parameter error!
+		*succeeded = 0;
+		return 0;
+	}
+
+	if (key == NULL)
+	{
+		// TODO: log invalid `key` parameter error!
+		*succeeded = 0;
+		return 0;
+	}
+
+	if (length <= 0)
+	{
+		// TODO: log invalid `length` parameter error!
+		*succeeded = 0;
+		return 0;
+	}
+
+	if (value == NULL)
+	{
+		// TODO: log invalid `value` parameter error!
+		*succeeded = 0;
+		return 0;
+	}
+
+	*succeeded = 0;
+
+	unsigned long long hash = 0;
+
+	W_Core_Containers_Map_hash(&hash, (const unsigned char* const *const)&key, length, (*map)->capacity, succeeded,
+	{
+		*succeeded = 0;
+		return 0;
+	},
+	{
+		// TODO: failed to hash key!
+		// *succeeded = 0;
+		return 1;
+	},
+	{});
+
+	struct Core_Containers_Map_Node* iterator = (*map)->nodes[hash];
+
+	while (iterator != NULL)
+	{
+		if (length == iterator->key.length && strncmp(key, iterator->key.buffer, length) == 0)
+		{
+			const void** const inner = (const void** const)value;
+			*inner = (void*)(iterator->value);
+
+			*succeeded = 1;
+			return 1;
+		}
+
+		if (iterator->next == NULL)
+		{
+			break;
+		}
+
+		iterator = iterator->next;
+	}
+
+	// TODO: log!
+	const void** const inner = (const void** const)value;
+	*inner = (void*)(NULL);
+
+	*succeeded = 0;
+	return 1;
+}
+
 signed char Core_Containers_Map_set(
 	struct Core_Containers_Map* const * const map,
 	const char* const key,
@@ -366,99 +459,6 @@ signed char Core_Containers_Map_set(
 	(*nodeAddr)->next = NULL;
 
 	*succeeded = 1;
-	return 1;
-}
-
-signed char Core_Containers_Map_get(
-	struct Core_Containers_Map* const * const map,
-	const char* const key,
-	const unsigned long long length,
-	const void* const * const value,
-	signed char* const succeeded)
-{
-	if (succeeded == NULL)
-	{
-		// TODO: log invalid `succeeded` parameter error!
-		return 0;
-	}
-
-	if (map == NULL)
-	{
-		// TODO: log invalid `map` parameter error!
-		*succeeded = 0;
-		return 0;
-	}
-
-	if (*map == NULL)
-	{
-		// TODO: log invalid `map`'s deref parameter error!
-		*succeeded = 0;
-		return 0;
-	}
-
-	if (key == NULL)
-	{
-		// TODO: log invalid `key` parameter error!
-		*succeeded = 0;
-		return 0;
-	}
-
-	if (length <= 0)
-	{
-		// TODO: log invalid `length` parameter error!
-		*succeeded = 0;
-		return 0;
-	}
-
-	if (value == NULL)
-	{
-		// TODO: log invalid `value` parameter error!
-		*succeeded = 0;
-		return 0;
-	}
-
-	*succeeded = 0;
-
-	unsigned long long hash = 0;
-
-	W_Core_Containers_Map_hash(&hash, (const unsigned char* const *const)&key, length, (*map)->capacity, succeeded,
-	{
-		*succeeded = 0;
-		return 0;
-	},
-	{
-		// TODO: failed to hash key!
-		// *succeeded = 0;
-		return 1;
-	},
-	{});
-
-	struct Core_Containers_Map_Node* iterator = (*map)->nodes[hash];
-
-	while (iterator != NULL)
-	{
-		if (length == iterator->key.length && strncmp(key, iterator->key.buffer, length) == 0)
-		{
-			const void** const inner = (const void** const)value;
-			*inner = (void*)(iterator->value);
-
-			*succeeded = 1;
-			return 1;
-		}
-
-		if (iterator->next == NULL)
-		{
-			break;
-		}
-
-		iterator = iterator->next;
-	}
-
-	// TODO: log!
-	const void** const inner = (const void** const)value;
-	*inner = (void*)(NULL);
-
-	*succeeded = 0;
 	return 1;
 }
 

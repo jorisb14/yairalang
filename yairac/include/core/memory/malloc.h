@@ -22,7 +22,17 @@
  * @{
  */
 
-// TODO: document!
+/**
+ * Allocate a memory block of specified size in bytes. Return 0 in case of an internal error and 1
+ * otherwise. The parameter `succeeded` indicates logic level errors. Should be used as this:
+ * 
+ * @code{.c}
+ *     char* buffer = NULL;
+ *     signed char succeeded = 0;
+ *     assert(Core_Memory_malloc((const char* const * const)&buffer, 10 * sizeof(char), &succeeded) == 1);
+ *     assert(succeeded == 1);
+ * @endcode
+ */
 signed char Core_Memory_malloc(
 	const void* const * const destination,
 	const unsigned long long size,
