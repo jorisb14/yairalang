@@ -2,7 +2,7 @@
 /**
  * @file realloc.h
  *
- * @copyright This file is a part of the project yarac and is distributed under GNU GPLv3 license
+ * @copyright This file is a part of the project yairac and is distributed under GNU GPLv3 license
  * that should have been included with the project.
  * If not, see https://www.gnu.org/licenses/gpl-3.0.en.html
  *
@@ -43,3 +43,4 @@ signed char Core_Memory_realloc(
  */
 
 #endif
+
